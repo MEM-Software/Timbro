@@ -1,7 +1,7 @@
 // Timbrò — Service Worker
 // IMPORTANTE: incrementare CACHE_NAME ad ogni deploy che modifica index.html
 // (o qualsiasi asset), altrimenti gli utenti resteranno sulla versione in cache.
-const CACHE_NAME = "timbro-cache-v1";
+const CACHE_NAME = "timbro-cache-v2";
 
 const ASSETS = [
   "./",
