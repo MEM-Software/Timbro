@@ -168,6 +168,25 @@
     letter-spacing:1px;text-transform:uppercase;
   }
   .week-label .range{font-size:13.5px;color:var(--text-dim);margin-top:2px;}
+
+  .mini-summary{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:8px 10px;
+    margin-top:8px;
+    gap:8px;
+    overflow-x:auto;
+  }
+  .mini-item{display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0;padding:0 4px;}
+  .mini-lbl{font-size:9.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;}
+  .mini-val{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:13.5px;white-space:nowrap;}
+  .mini-val.permesso{color:var(--permesso);}
+  .mini-val.positive{color:var(--positive);}
+  .mini-val.neutral{color:var(--text);}
+  .mini-val.accent{color:var(--accent);}
+  .mini-sep{width:1px;height:22px;background:var(--border);flex-shrink:0;}
+
   .today-link{
     text-align:center;margin:-6px 0 16px;
   }
@@ -377,6 +396,15 @@
           <div class="range" id="weekRange">10 – 14 Ago 2026</div>
         </div>
         <button id="nextWeek">›</button>
+      </div>
+      <div class="mini-summary" id="miniSummary">
+        <span class="mini-item"><span class="mini-lbl">Lavorate</span><span class="mini-val neutral" id="miniLavorate">0h</span></span>
+        <span class="mini-sep"></span>
+        <span class="mini-item"><span class="mini-lbl">Permesso</span><span class="mini-val permesso" id="miniPermesso">0h</span></span>
+        <span class="mini-sep"></span>
+        <span class="mini-item"><span class="mini-lbl">Straord.</span><span class="mini-val positive" id="miniStraordinario">0h</span></span>
+        <span class="mini-sep"></span>
+        <span class="mini-item"><span class="mini-lbl">Saldo</span><span class="mini-val accent" id="miniSaldo">0h</span></span>
       </div>
     </div>
     <div class="today-link"><a id="gotoToday">torna a questa settimana</a></div>
@@ -713,6 +741,12 @@
     } else {
       badge.textContent = `Saldo settimana: 0h`;
     }
+
+    // riga compatta fissa (stesso dato del riepilogo esteso in fondo)
+    document.getElementById("miniLavorate").textContent = `${sumLavorate}h`;
+    document.getElementById("miniPermesso").textContent = `${sumPermesso}h`;
+    document.getElementById("miniStraordinario").textContent = `${sumStraordinario}h`;
+    document.getElementById("miniSaldo").textContent = saldo > 0 ? `+${saldo}h` : `0h`;
 
     // wire inputs
     daysEl.querySelectorAll("input[data-field]").forEach(inp=>{
